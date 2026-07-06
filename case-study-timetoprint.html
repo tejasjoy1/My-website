@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TimeToPrint — Case Study | Tejas N.</title>
+<script>
+(function(){
+  try{
+    var stored=localStorage.getItem('theme');
+    var wantLight = stored ? stored==='light' : window.matchMedia('(prefers-color-scheme: light)').matches;
+    if(wantLight){ document.documentElement.setAttribute('data-theme','light'); }
+  }catch(e){}
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+</head>
+<body>
+  <div class="spotlight"></div>
+
+  <div class="grain"></div>
+  <div class="page-wipe" id="pageWipe"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"><span class="cursor-label" id="cursorLabel"></span></div>
+
+  <div id="loader">
+    <div class="boot mono" id="bootText">&gt; initializing<span class="cursor-blink"></span></div>
+  </div>
+
+  <div id="site" style="opacity:0;transition:opacity .5s;">
+
+  <nav>
+    <a href="index.html" class="logo" style="text-decoration:none;color:var(--ink);">TEJAS<em>.</em>N</a>
+    <ul class="nav-links">
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme" data-cursor="Theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="2" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+      <button class="nav-cta magnetic" onclick="window.location.href='mailto:tejasjoy1@gmail.com'" data-cursor="Email">Say hi ↗</button>
+      <button class="nav-burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" data-nav-mobile><span>00</span>Home</a>
+    <a href="index.html#work" data-nav-mobile><span>01</span>Work</a>
+    <a href="index.html#about" data-nav-mobile><span>02</span>About</a>
+    <a href="index.html#contact" data-nav-mobile><span>03</span>Contact</a>
+  </div>
+
+  <a href="index.html#work" class="cs-back reveal">← Back to portfolio</a>
+
+  <section class="cs-hero">
+    <span class="cs-eyebrow reveal"><span class="dot-live"></span> Case Study</span>
+    <h1 class="cs-title reveal stagger-1">Time<em>To</em>Print</h1>
+    <p class="cs-tagline reveal stagger-2">A smart self-service printing solution that lets users upload documents from their phone, pay online, and collect prints from an automated kiosk — no queues, no USB drives, no waiting on staff.</p>
+    <div class="cs-metrics reveal stagger-3">
+      <div class="hstat"><p>UI/UX</p><span>Role</span></div>
+      <div class="hstat"><p>3 Weeks</p><span>Duration</span></div>
+      <div class="hstat"><p>20+</p><span>Screens</span></div>
+      <div class="hstat"><p>Interactive</p><span>Prototype</span></div>
+      <div class="hstat"><p>Mobile + Kiosk + Web</p><span>Platform</span></div>
+    </div>
+  </section>
+
+  <div class="cs-section">
+    <div class="sec-head reveal"><span class="sec-heading">Problem <em>statement</em></span><span class="sec-label">01 / 09</span></div>
+    <div class="cs-body reveal">
+      <p>Printing documents is often inconvenient — visiting a print shop, waiting for staff availability, transferring files manually, and standing in queues. During busy hours it gets worse, especially for students who need urgent printouts before classes or exams.</p>
+      <h4>Objective</h4>
+      <p>Design a seamless, self-serve printing experience: upload documents remotely, pay digitally, get real-time print status, and collect the finished job without ever talking to a shop operator.</p>
+    </div>
+  </div>
+
+  <div class="cs-section">
+    <div class="sec-head reveal"><span class="sec-heading">Role & <em>process</em></span><span class="sec-label">02 / 09</span></div>
+    <div class="cs-body reveal">
+      <div class="cs-meta-row">
+        <div><span class="h">Responsibilities</span>
+          <div class="tag-row">
+            <span class="tag">User Research</span><span class="tag">Problem Analysis</span><span class="tag">User Flow Design</span><span class="tag">Wireframing</span><span class="tag">UI Design</span><span class="tag">Mobile App Design</span><span class="tag">Website Design</span><span class="tag">Branding</span><span class="tag">Interactive Prototyping</span>
+          </div>
+        </div>
+      </div>
+      <div class="cs-meta-row" style="margin-bottom:0;">
+        <div><span class="h">Tools used</span>
+          <div class="tag-row"><span class="tag">Figma</span><span class="tag">Adobe Illustrator</span><span class="tag">Photoshop</span><span class="tag">FigJam</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="cs-flow">
+      <div class="cs-flow-step reveal"><div class="cs-flow-num">01</div><div class="cs-flow-label">Research</div></div>
+      <div class="cs-flow-step reveal"><div class="cs-flow-num">02</div><div class="cs-flow-label">Problem definition</div></div>
+      <div class="cs-flow-step reveal"><div class="cs-flow-num">03</div><div class="cs-flow-label">User personas</div></div>
+      <div class="cs-flow-step reveal"><div class="cs-flow-num">04</div><div class="cs-flow-label">User flow</div></div>
+      <div class="cs-flow-step reveal"><div class="cs-flow-num">05</div><div class="cs-flow-label">Wireframes</div></div>
+      <div class="cs-flow-step reveal"><div class="cs-flow-num">06</div><div class="cs-flow-label">High-fidelity UI</div></div>
+      <div class="cs-flow-step reveal"><div class="cs-flow-num">07</div><div class="cs-flow-label">Prototype</div></div>
+      <div class="cs-flow-step reveal"><div class="cs-flow-num">08</div><div class="cs-flow-label">Design iterations</div></div>
+    </div>
+  </div>
+
+  <div class="cs-section">
+    <div class="sec-head reveal"><span class="sec-heading">User <em>research</em></span><span class="sec-label">03 / 09</span></div>
+    <div class="cs-body reveal">
+      <p>Research surfaced consistent friction in how people print: long waits at shops, files passed around manually over WhatsApp or USB, limited payment options, no visibility into progress, and real difficulty getting anything printed during peak hours.</p>
+      <h4>Key insights</h4>
+      <ul class="cs-list">
+        <li>Long waiting times at print shops</li>
+        <li>Manual file transfers through WhatsApp or USB drives</li>
+        <li>Limited payment options</li>
+        <li>No visibility into print progress</li>
+        <li>Difficulty printing documents during peak hours</li>
+      </ul>
+    </div>
+    <div class="services cs-features" style="border-top:1px solid var(--border);">
+      <div class="svc reveal" data-tilt>
+        <div class="svc-num">01 /</div>
+        <h3>College Students</h3>
+        <p>Need quick printing for assignments, lab records, and examination documents.</p>
+      </div>
+      <div class="svc reveal stagger-1" data-tilt>
+        <div class="svc-num">02 /</div>
+        <h3>Working Professionals</h3>
+        <p>Require urgent printing for meetings, contracts, and presentations.</p>
+      </div>
+      <div class="svc reveal stagger-2" data-tilt>
+        <div class="svc-num">03 /</div>
+        <h3>Travelers</h3>
+        <p>Need immediate printing of tickets, passports, visas, and boarding passes.</p>
+      </div>
+    </div>
+    <div class="cs-persona reveal">
+      <div class="cs-persona-id">
+        <p class="name">Rahul Sharma</p>
+        <p class="meta">Age 21<br>Engineering Student</p>
+        <span class="tag">Primary persona</span>
+      </div>
+      <div class="skill-col">
+        <span class="h">Goals</span>
+        <ul>
+          <li>Print documents quickly</li>
+          <li>Avoid waiting in queues</li>
+          <li>Pay digitally</li>
+          <li>Receive print status updates</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <span class="h">Pain points</span>
+        <ul>
+          <li>Long queues</li>
+          <li>Slow printing process</li>
+          <li>Carrying USB drives</li>
+          <li>Limited payment methods</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="cs-section">
+    <div class="sec-head reveal"><span class="sec-heading">Solution & <em>features</em></span><span class="sec-label">04 / 09</span></div>
+    <div class="cs-body reveal">
+      <p>TimeToPrint offers a fully digital printing experience. Users upload a PDF, Word document, or image from their phone; choose paper size, color, copies, and orientation; pay securely online; and get a QR code that authenticates them at the kiosk. From there, they can track the job in real time and collect it the moment it's done.</p>
+    </div>
+    <div class="services cs-features">
+      <div class="svc reveal" data-tilt><div class="svc-num">01 /</div><h3>Mobile Upload</h3><p>Upload files directly from a smartphone.</p></div>
+      <div class="svc reveal" data-tilt><div class="svc-num">02 /</div><h3>Online Payment</h3><p>Integrated digital payment before printing.</p></div>
+      <div class="svc reveal" data-tilt><div class="svc-num">03 /</div><h3>QR Authentication</h3><p>Scan a QR code at the kiosk to begin printing.</p></div>
+      <div class="svc reveal" data-tilt><div class="svc-num">04 /</div><h3>Live Print Status</h3><p>Track document progress in real time.</p></div>
+      <div class="svc reveal" data-tilt><div class="svc-num">05 /</div><h3>Print History</h3><p>Access previously printed documents.</p></div>
+      <div class="svc reveal" data-tilt><div class="svc-num">06 /</div><h3>Multiple File Support</h3><p>Supports PDFs, Word documents, and images.</p></div>
+    </div>
+  </div>
+
+  <div class="cs-section">
+    <div class="sec-head reveal"><span class="sec-heading">User <em>flow</em></span><span class="sec-label">05 / 09</span></div>
+    <div class="cs-userflow reveal">
+      <span class="flow-chip">Open App</span><span class="flow-arrow">→</span>
+      <span class="flow-chip">Upload Document</span><span class="flow-arrow">→</span>
+      <span class="flow-chip">Select Print Settings</span><span class="flow-arrow">→</span>
+      <span class="flow-chip">Review Order</span><span class="flow-arrow">→</span>
+      <span class="flow-chip">Online Payment</span><span class="flow-arrow">→</span>
+      <span class="flow-chip">Receive QR Code</span><span class="flow-arrow">→</span>
+      <span class="flow-chip">Visit Kiosk</span><span class="flow-arrow">→</span>
+      <span class="flow-chip">Scan QR Code</span><span class="flow-arrow">→</span>
+      <span class="flow-chip">Printing Starts</span><span class="flow-arrow">→</span>
+      <span class="flow-chip">Collect Documents</span>
+    </div>
+  </div>
+
+  <div class="cs-section">
+    <div class="sec-head reveal"><span class="sec-heading">Wireframes & <em>UI</em></span><span class="sec-label">06 / 09</span></div>
+    <div class="cs-body reveal" style="padding-bottom:1.6rem;">
+      <p>Low-fidelity wireframes established the user journey and navigation before moving into high-fidelity screens. The final interface keeps things minimal — clear typography, consistent spacing, and intuitive navigation — so printing takes minimal effort on both a phone and a kiosk display.</p>
+    </div>
+    <div class="cs-media-grid">
+      <div class="cs-media-box reveal">Add wireframe image</div>
+      <div class="cs-media-box reveal stagger-1">Add wireframe image</div>
+      <div class="cs-media-box reveal stagger-2">Add wireframe image</div>
+      <div class="cs-media-box reveal">Add UI screenshot</div>
+      <div class="cs-media-box reveal stagger-1">Add UI screenshot</div>
+      <div class="cs-media-box reveal stagger-2">Add UI screenshot</div>
+    </div>
+  </div>
+
+  <div class="cs-section">
+    <div class="sec-head reveal"><span class="sec-heading">Prototype</span><span class="sec-label">07 / 09</span></div>
+    <div class="cs-proto reveal">
+      <button class="cs-proto-btn" disabled data-cursor="Soon">View Interactive Prototype →</button>
+      <p class="cs-proto-note">Prototype link coming soon.</p>
+    </div>
+  </div>
+
+  <div class="cs-section">
+    <div class="sec-head reveal"><span class="sec-heading">Challenges & <em>decisions</em></span><span class="sec-label">08 / 09</span></div>
+    <div class="cs-two-col">
+      <div class="reveal">
+        <h4>Challenges</h4>
+        <ul class="cs-list">
+          <li>Simplifying the printing workflow into a few intuitive steps</li>
+          <li>Designing a responsive interface for both mobile and kiosk displays</li>
+          <li>Balancing functionality with a clean, uncluttered interface</li>
+          <li>Making the process understandable without any guidance</li>
+        </ul>
+      </div>
+      <div class="reveal stagger-1">
+        <h4>Design decisions</h4>
+        <ul class="cs-list">
+          <li>Minimal interface to reduce cognitive load</li>
+          <li>QR-code authentication instead of manual verification</li>
+          <li>Step-by-step workflow to minimize user errors</li>
+          <li>Large touch targets and readable type for kiosk interaction</li>
+          <li>Live print tracking for transparency and confidence</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="cs-section">
+    <div class="sec-head reveal"><span class="sec-heading">Outcome & <em>learnings</em></span><span class="sec-label">09 / 09</span></div>
+    <div class="cs-body reveal" style="padding-bottom:3rem;">
+      <p>TimeToPrint streamlines the traditional printing experience by cutting wait times, removing manual file transfers, and enabling secure, contactless printing — improving efficiency while staying simple for students and professionals alike.</p>
+      <h4>Key learnings</h4>
+      <p>This project strengthened my user-centered design, workflow optimization, interaction design, and prototyping skills. It also sharpened my sense of designing for two very different surfaces — a mobile app and a physical kiosk — while keeping the experience consistent across both.</p>
+    </div>
+  </div>
+
+  <div class="cs-next">
+    <p>Want to see what else I've been working on?</p>
+    <a class="hero-cta magnetic" href="index.html#work" data-cursor="View" style="display:inline-flex;">Back to portfolio ↗</a>
+  </div>
+
+  <footer>
+    <div class="status-left"><span class="dot-live"></span> <span id="clockText">IST 00:00:00</span></div>
+    <div class="status-right">
+      <span>© 2026 Tejas N.</span>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#contact">Contact</a>
+      <span id="lastPing">viewing now</span>
+      <span>Bengaluru, India</span>
+    </div>
+  </footer>
+
+  </div>
+
+  <button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
