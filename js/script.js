@@ -115,6 +115,11 @@ function initWork(){
     });
 });
 }
+document.querySelectorAll('.project-btn').forEach(btn=>{
+    btn.addEventListener('click',(e)=>{
+        e.stopPropagation();
+    });
+});
 function initClock(){
   const clockEl=document.getElementById('clockText');
   function tick(){
