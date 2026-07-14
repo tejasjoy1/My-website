@@ -86,17 +86,34 @@ function initReveal(){
 }
 
 function initWork(){
-  document.querySelectorAll('.work-item').forEach(item=>{
-    item.addEventListener('click',()=>{
-      const wasOpen=item.classList.contains('open');
-      document.querySelectorAll('.work-item').forEach(w=>w.classList.remove('open'));
-      if(!wasOpen) item.classList.add('open');
+ document.querySelectorAll('.work-item').forEach(item => {
+    item.addEventListener('click', () => {
+
+        // Open TimeToPrint website
+        if (item.dataset.idx === "0") {
+            window.open(
+                "https://tejasjoy1.github.io/TimeToPrint/",
+                "_blank"
+            );
+            return;
+        }
+
+        const wasOpen = item.classList.contains('open');
+
+        document.querySelectorAll('.work-item')
+            .forEach(w => w.classList.remove('open'));
+
+        if (!wasOpen)
+            item.classList.add('open');
     });
-    item.addEventListener('keydown',(e)=>{
-      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); item.click(); }
+
+    item.addEventListener('keydown', (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            item.click();
+        }
     });
-  });
-}
+});
 
 function initClock(){
   const clockEl=document.getElementById('clockText');
