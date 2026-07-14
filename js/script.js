@@ -114,7 +114,7 @@ function initWork(){
         }
     });
 });
-
+}
 function initClock(){
   const clockEl=document.getElementById('clockText');
   function tick(){
